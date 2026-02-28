@@ -2,13 +2,14 @@
 name = "pyo3-test"
 version = "0.1.0"
 description = "PyO3 test project with Pixi for Python builds"
-channels = ["conda-forge"]
+channels = ["file:///home/joseph/pkg-repo/conda-channel", "conda-forge"]
 # A list of platforms you are supporting with your package.
 platforms = ["win-64", "linux-64", "osx-64"]
 
 [dependencies]
 python = "3.12.*|3.13.*|3.14.*"
 rust = "1.85.*"
+pip = "*"
 
 [pypi-dependencies]
 maturin = ">=1.12,<2.0"
@@ -17,8 +18,6 @@ maturin = ">=1.12,<2.0"
 build = "maturin build --release"
 build-manylinux = "maturin build --release --manylinux 2_34"
 develop = "maturin develop"
-install = "pip install target/wheels/pyo3_test-*.whl"
-x = "echo {{ pixi.platform }}"
 
 [feature.py312.dependencies]
 python = "3.12.*"
