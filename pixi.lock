@@ -43,8 +43,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.13-noxft_h366c992_103.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2025c-hc9c84f9_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/zstd-1.5.7-hb78ec9c_6.conda
-      - pypi: https://files.pythonhosted.org/packages/b7/95/cec17826cdbfcbcc8482540de1559053a26e2c3cf4df5ee8515e04bd2cf2/maturin-1.12.5-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.musllinux_1_1_x86_64.whl
-      - pypi: /home/joseph/pkg-repo/wheels/pyo3_test-0.1.0-cp314-cp314-manylinux_2_34_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/59/ea/f1d6ad95c0a12fbe761a7c28a57540341f188564dbe8ad730a4d1788cd32/maturin-1.12.6-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.musllinux_1_1_x86_64.whl
+      - pypi: ./target/wheels/pyo3_test-0.1.0-cp314-cp314-manylinux_2_34_x86_64.whl
       osx-64:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/bzip2-1.0.8-h500dc9f_9.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2026.2.25-hbd8a1cb_0.conda
@@ -65,8 +65,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/tk-8.6.13-h7142dee_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2025c-hc9c84f9_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
-      - pypi: https://files.pythonhosted.org/packages/c5/e0/d670dfd96dc331d4a7cedeee49705f0dc5b5d0d6e78d46b92ada2825711c/maturin-1.12.5-py3-none-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl
-      - pypi: /home/joseph/pkg-repo/wheels/pyo3_test-0.1.0-cp314-cp314-manylinux_2_34_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/ef/e8/5f7fd3763f214a77ac0388dbcc71cc30aec5490016bd0c8e6bd729fc7b0a/maturin-1.12.6-py3-none-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl
+      - pypi: ./target/wheels/pyo3_test-0.1.0-cp314-cp314-manylinux_2_34_x86_64.whl
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h0ad9c76_9.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2026.2.25-h4c7d964_0.conda
@@ -89,8 +89,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/vc14_runtime-14.44.35208-h818238b_34.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/vcomp14-14.44.35208-h818238b_34.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
-      - pypi: https://files.pythonhosted.org/packages/65/b2/ff02747eedc86972822e2c06ffb2e0cff2f01a71d626122ba289529b256d/maturin-1.12.5-py3-none-win_amd64.whl
-      - pypi: /home/joseph/pkg-repo/wheels/pyo3_test-0.1.0-cp314-cp314-manylinux_2_34_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/94/66/b262832a91747e04051e21f986bd01a8af81fbffafacc7d66a11e79aab5f/maturin-1.12.6-py3-none-win_amd64.whl
+      - pypi: ./target/wheels/pyo3_test-0.1.0-cp314-cp314-manylinux_2_34_x86_64.whl
   default:
     channels:
     - url: file:///home/joseph/pkg-repo/conda-channel/
@@ -925,6 +925,33 @@ packages:
   - patchelf ; extra == 'patchelf'
   - ziglang>=0.10.0 ; extra == 'zig'
   requires_python: '>=3.7'
+- pypi: https://files.pythonhosted.org/packages/59/ea/f1d6ad95c0a12fbe761a7c28a57540341f188564dbe8ad730a4d1788cd32/maturin-1.12.6-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.musllinux_1_1_x86_64.whl
+  name: maturin
+  version: 1.12.6
+  sha256: 6dbddfe4dc7ddee60bbac854870bd7cfec660acb54d015d24597d59a1c828f61
+  requires_dist:
+  - tomli>=1.1.0 ; python_full_version < '3.11'
+  - patchelf ; extra == 'patchelf'
+  - ziglang>=0.10.0 ; extra == 'zig'
+  requires_python: '>=3.7'
+- pypi: https://files.pythonhosted.org/packages/94/66/b262832a91747e04051e21f986bd01a8af81fbffafacc7d66a11e79aab5f/maturin-1.12.6-py3-none-win_amd64.whl
+  name: maturin
+  version: 1.12.6
+  sha256: 977290159d252db946054a0555263c59b3d0c7957135c69e690f4b1558ee9983
+  requires_dist:
+  - tomli>=1.1.0 ; python_full_version < '3.11'
+  - patchelf ; extra == 'patchelf'
+  - ziglang>=0.10.0 ; extra == 'zig'
+  requires_python: '>=3.7'
+- pypi: https://files.pythonhosted.org/packages/ef/e8/5f7fd3763f214a77ac0388dbcc71cc30aec5490016bd0c8e6bd729fc7b0a/maturin-1.12.6-py3-none-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl
+  name: maturin
+  version: 1.12.6
+  sha256: c0c742beeeef7fb93b6a81bd53e75507887e396fd1003c45117658d063812dad
+  requires_dist:
+  - tomli>=1.1.0 ; python_full_version < '3.11'
+  - patchelf ; extra == 'patchelf'
+  - ziglang>=0.10.0 ; extra == 'zig'
+  requires_python: '>=3.7'
 - conda: https://conda.anaconda.org/conda-forge/linux-64/ncurses-6.5-h2d0b736_3.conda
   sha256: 3fde293232fa3fca98635e1167de6b7c7fda83caf24b9d6c91ec9eefb4f4d586
   md5: 47e340acb35de30501a76c7c799c41d7
@@ -1016,7 +1043,7 @@ packages:
   - pkg:pypi/pip?source=compressed-mapping
   size: 1181790
   timestamp: 1770270305795
-- pypi: /home/joseph/pkg-repo/wheels/pyo3_test-0.1.0-cp314-cp314-manylinux_2_34_x86_64.whl
+- pypi: ./target/wheels/pyo3_test-0.1.0-cp314-cp314-manylinux_2_34_x86_64.whl
   name: pyo3-test
   version: 0.1.0
   requires_python: '>=3.8'

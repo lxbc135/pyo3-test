@@ -2,7 +2,7 @@
 name = "pyo3-test"
 version = "0.1.0"
 description = "PyO3 test project with Pixi for Python builds"
-channels = ["file:///home/joseph/pkg-repo/conda-channel", "conda-forge"]
+channels = ["conda-forge"]
 # A list of platforms you are supporting with your package.
 platforms = ["win-64", "linux-64", "osx-64"]
 
@@ -15,11 +15,9 @@ pip = "*"
 maturin = ">=1.12,<2.0"
 
 [tasks]
+develop = "maturin develop"
 build = "maturin build --release"
 build-manylinux = "maturin build --release --manylinux 2_34"
-develop = "maturin develop"
-test = "$CONDA_PREFIX/bin/python -c 'import pyo3_test; print(pyo3_test.generate_uuid())'"
-publish-local = "mkdir -p ~/pkg-repo/wheels && cp target/wheels/*.whl ~/pkg-repo/wheels/"
 
 [feature.py312.dependencies]
 python = "3.12.*"
@@ -30,14 +28,7 @@ python = "3.13.*"
 [feature.py314.dependencies]
 python = "3.14.*"
 
-# Test like consumer
-[feature.consumer-py314.dependencies]
-python = "3.14.*"
-[feature.consumer-py314.pypi-dependencies]
-pyo3_test = { path = "/home/joseph/pkg-repo/wheels/pyo3_test-0.1.0-cp314-cp314-manylinux_2_34_x86_64.whl" }
-
 [environments]
 py312 = ["py312"]
 py313 = ["py313"]
 py314 = ["py314"]
-consumer-py314 = ["consumer-py314"] # Test like consumer
