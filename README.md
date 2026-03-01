@@ -18,7 +18,7 @@ pixi run -e py314 develop
 
 This installs package in the virtual environment.
 
-### Build Wheel for Release Distribution
+### Build for Release Distribution
 
 ```sh
 pixi run -e py314 build
