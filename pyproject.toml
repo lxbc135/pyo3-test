@@ -17,7 +17,7 @@ build-backend = "maturin"
 managed = true
 
 # This tells uv to rebuild the Rust code if any .rs or Cargo files change
-# cache-keys = [{ file = "Cargo.toml" }, { file = "src/**/*.rs" }]
+cache-keys = [{ file = "Cargo.toml" }, { file = "src/**/*.rs" }]
 
 [dependency-groups]
 dev = [
