@@ -2,101 +2,114 @@
 
 ## Quick Start
 
-### Disable VSCode Auto Activate Virtual Environment
-
-You will activate/deactive virtual environments
-for builds, then should disable VSCode's auto
-activating of virtual environment as follows.
-
-**.vscode\settings.json:**
-
-```json
-{
-  "python.terminal.activateEnvironment": false
-}
-```
-
-**Create virtual environment for Python version:**
+**Create virtual environment:**
 
 ```sh
-uv venv .py313 --python 3.13
+uv venv --python 3.13
 ```
 
-Activate it below.
+That will create virtual environment in `.venv/` directory.
+
+**Activate virtual environment:**
 
 **Linux:**
 
 ```sh
-source .py313/bin/activate
+source .venv/bin/activate
 ```
 
 **Bash (Windows):**
 
 ```sh
-source .py313/Scripts/activate
+source .venv/Scripts/activate
 ```
 
 **PowerShell (Windows):**
 
 ```powershell
-.py313\Scripts\activate.ps1
+.venv\Scripts\activate.ps1
 ```
 
-**Install dependencies including dev group:**
+**Install dependencies, including dev group:**
 
 ```sh
-# Sync dependencies
-uv sync --group  dev --active
+# Sync dependencies, including dev group
+uv sync --group dev
 ```
 
-The `--group dev` option also includes development group dependencies. The `--active` option uses the current active virtual environment. That prevents a warning that happens if there is a managed `.venv` virtual environment.
+The `--group dev` option includes development group dependencies.
 
-```
-warning: `VIRTUAL_ENV=.py313` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
-```
+**To build shared library and install it in virtual environment:
 
-**Build for Development:**
-
-```sh
-just develop
+```bash
+maturin develop
 ```
 
-That builds and installs the package in the virtual environment, but it does not create distributable .`whl` file under `target/wheels/` directory. With it, you can now import the package in Python.
+**Test:**
 
-**Try the Hello World example:**
-
-```sh
-just hello
+```bash
+python -c "from pyo3_test import hello; print(hello('world'))"
 ```
 
-It should print out `Hello, world!`. The `hello` task  imports `pyo3_test` module and calls function: `hello("world")`.
+It should output "Hello, world!".
 
-## Development Tasks
+## Release Build
 
-More detailed development tasks follows.
+To build `.whl` and sdist `.tar.gz` in `dist/`:
 
-### Build for Release Distribution
-
-```sh
-uv run build
+```bash
+uv build
 ```
 
-It will create `.whl` file under `target/wheels/` directory.
+**Output:**
 
-> Note: This does not install package in the virtual environment.
+Successfully built dist\pyo3_test-0.1.0.tar.gz
+Successfully built dist\pyo3_test-0.1.0-cp312-cp312-win_amd64.whl
 
-## Build with Specific glibc Version
+It will target the Python version and glibc detected in the virtual environment, by default.
 
-The `--manylinux` option of `maturin` lets you specify glibc version.
+To build for another Python 3.12:
 
-**Example:**
-
-```sh
-just build-manylinux
+```bash
+uv build --python 3.12
 ```
 
-Without that option, it auto detects and use the glibc version in the virtual environment, by default.
+> **Note:** That will build Python 3.12 version of wheel, despite that the Python version in the currently active virtual environment is different.
 
-To build for Python 3.13:
+`uv build` with `maturin` backend is effectively same as `maturin build --release`, but outputs to `dist/` directory instead of `target/wheels/`. `uv build` uses `maturin` `--release` build automatically, which performs optimized build.
 
-VIRTUAL_ENV=py313 uv run --active maturin build
+**To specify glibc version via --manylinux:**
+
+The maturin `--manylinux` option specifies which glibc version to use, for example, `2.34`:
+
+```bash
+uv build --config-setting="build-args=--manylinux 2_34"
+```
+
+That runs maturin command with `--manylinux` option:
+
+```bash
+Running `maturin pep517 build-wheel -i C:\Users\username\AppData\Local\uv\cache\builds-v0\.tmpC1Tzfh\Scripts\python.exe --manylinux 2_34`
+```
+
+## Debug Build
+
+If you need a debug build (non-release) while using uv, you cannot simply pass a flag to uv build. Instead, you must use one of these methods:
+
+* Environment Variable: Export `MATURIN_PEP517_ARGS=--profile=dev` before running uv build.
+* Config Settings: Use the PEP 517 config settings flag:
+
+```bash
+uv build --config-setting="build-args=--profile=dev"
+```
+
+**To pass multiple options to maturin, use space separated maturin options:**
+
+```bash
+uv build --config-setting="build-args=--manylinux 2_34 --profile=dev"
+```
+
+**Output:**
+```bash
+Running `maturin pep517 build-wheel -i C:\Users\username\AppData\Local\uv\cache\builds-v0\.tmprsgE6A\Scripts\python.exe --manylinux 2_34 --profile=dev`
+```
